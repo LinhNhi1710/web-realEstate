@@ -65,6 +65,7 @@
 </template>
 
 <script>
+import CommonLayout from "@/layout/CommonLayout.vue";
 import { AuthService } from "@/services/auth2.service";
 export default {
   name: "RegisterView",

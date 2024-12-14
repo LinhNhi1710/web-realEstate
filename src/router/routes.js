@@ -5,8 +5,8 @@ import profilePostsPage from '../pages/profile/ProfilePostsPage.vue'
 // single pages
 import homePage from '../pages/Home.vue'
 import newsPage from '../pages/news/NewsPage.vue'
-import loginPage from '../pages/Login.vue'
 import notFoundPage from '../pages/NotFound.vue'
+import registerPage from '../pages/AuthenView/RegisterView.vue'
 
 import { routePropResolver } from './util'
 import { DOMAIN_TITLE } from '../.env'
@@ -37,11 +37,17 @@ export const routes = [
       }
     ]
   },
+  // {
+  //   path: '/login',
+  //   name: 'login',
+  //   component: loginPage,
+  //   meta: { title: `${DOMAIN_TITLE} | login` }
+  // },
   {
-    path: '/login',
-    name: 'login',
-    component: loginPage,
-    meta: { title: `${DOMAIN_TITLE} | login` }
+    path: "/register",
+    name: "register",
+    component: registerPage,
+    meta: { title: `${DOMAIN_TITLE} | register` },
   },
   {
     path: '*',
