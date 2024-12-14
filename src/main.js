@@ -6,6 +6,7 @@ import store from "./store";
 
 import Antd from "ant-design-vue";
 import "ant-design-vue/dist/antd.css";
+import { Vuelidate } from "vuelidate";
 
 import "./mixins";
 import "./plugins";
@@ -17,8 +18,6 @@ import "./assets/fonts/bebasneue.css";
 import { Cloudinary } from "cloudinary-vue";
 import cloudinaryCore from "cloudinary-core";
 
-Vue.config.productionTip = false;
-
 Vue.use(Antd);
 Vue.use(Cloudinary, {
   configuration: { cloudName: "detorxu0l" },
@@ -27,6 +26,7 @@ Vue.use(Cloudinary, {
 Vue.prototype.$cloudinaryCore = new cloudinaryCore.Cloudinary({
   cloud_name: "detorxu0l",
 });
+Vue.config.productionTip = false
 
 const commitWindowWidth = () =>
   store.commit("dom/SET_WINDOW_WIDTH", window.innerWidth);
@@ -35,6 +35,7 @@ new Vue({
   name: "Root",
   router,
   store,
+  Vuelidate,
   mounted() {
     commitWindowWidth();
     window.addEventListener("resize", commitWindowWidth);
