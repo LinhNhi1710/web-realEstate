@@ -10,6 +10,133 @@
         scrollBehavior: 'smooth',
       }"
     >
+      <a-layout-header
+        :style="{
+          background: 'transparent',
+          padding: '16px',
+          height: 'auto',
+        }"
+      >
+        <a-card
+          :style="{
+            background: 'rgba(0, 0, 0, 0.6)',
+            border: '15px',
+          }"
+        >
+          <div>
+            <el-autocomplete
+              placeholder="Nhập địa điểm bạn đang tìm kiếm..."
+              v-model="selectedCategoriesParams.TieuDe"
+              class="input-with-select"
+              autocomplete="on"
+              :style="{
+                width: '100%',
+              }"
+            >
+              <el-select
+                slot="prepend"
+                placeholder="Chọn thành phố"
+                v-model="selectedCategoriesParams.ThanhPho"
+                @change="onCityChange"
+                :style="{
+                  minWidth: '200px',
+                  width: 'fit-content',
+                }"
+              >
+                <el-option
+                  v-for="city in cities"
+                  :key="city.id"
+                  :label="city.name"
+                  :value="city.name"
+                >
+                </el-option>
+              </el-select>
+              <el-button
+                slot="append"
+                :style="{
+                  background: '#e03c31',
+                  color: 'white',
+                  border: 'none',
+                  fontWeight: 'bold',
+                }"
+              >
+                Tìm kiếm
+              </el-button>
+            </el-autocomplete>
+          </div>
+          <div
+            :style="{
+              marginTop: '5px',
+              display: 'flex',
+              gap: '0px 10px',
+            }"
+          >
+            <el-select
+              multiple
+              filterable
+              :style="{
+                minWidth: '300px',
+                overflow: 'hidden',
+                width: 'fit-content'
+              }"
+              placeholder="Loại Nhà Đất"
+              v-model="selectedCategoriesParams.LoaiBDS"
+              @change="handleChange"
+            >
+              <el-option
+                v-for="item in allCurrentRealEstateTypes"
+                :key="item.id"
+                :label="item.LoaiBDS"
+                :value="item.id"
+              >
+              </el-option>
+            </el-select>
+            <el-select
+              placeholder="Mức Giá"
+              v-model="selectedCategoriesParams.MucGia"
+            >
+              <el-option
+                v-for="item in filterCateByPrice"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
+            <el-select
+              placeholder="Diện Tích"
+              :style="{
+                width: '150px',
+              }"
+              v-model="selectedCategoriesParams.DienTich"
+            >
+              <el-option
+                v-for="item in filterCateByArea"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+              </el-option>
+            </el-select>
+            <el-select
+              placeholder="Số phòng ngủ"
+              multiple
+              :style="{
+                minWidth: '100px',
+              }"
+              v-model="selectedCategoriesParams.SoPhongNgu"
+            >
+              <el-option
+                v-for="item in 20"
+                :key="item"
+                :label="item"
+                :value="item"
+              >
+              </el-option>
+            </el-select>
+          </div>
+        </a-card>
+      </a-layout-header>
       <a-layout
         :style="{
           background: 'transparent',
@@ -87,6 +214,53 @@
           </a-spin>
 
         </a-layout-content>
+        <a-layout-sider
+          :style="{
+            background: 'transparent',
+          }"
+        >
+          <a-card
+            :style="{
+              border: '1px solid #f2f2f2',
+              borderRadius: '8px',
+              marginBottom: '16px',
+            }"
+          >
+            <a-list item-layout="horizontal" :data-source="filterCateByPrice">
+              <a-list-item
+                slot="renderItem"
+                slot-scope="item"
+                :style="{
+                  cursor: 'pointer',
+                }"
+                @click="selectedCategoriesParams.MucGia = item.value"
+              >
+                {{ item.label }}
+              </a-list-item>
+            </a-list>
+          </a-card>
+
+          <a-card
+            :style="{
+              border: '1px solid #f2f2f2',
+              borderRadius: '8px',
+              marginBottom: '16px',
+            }"
+          >
+            <a-list item-layout="horizontal" :data-source="filterCateByArea">
+              <a-list-item
+                slot="renderItem"
+                slot-scope="item"
+                :style="{
+                  cursor: 'pointer',
+                }"
+                @click="selectedCategoriesParams.DienTich = item.value"
+              >
+                {{ item.label }}
+              </a-list-item>
+            </a-list>
+          </a-card>
+        </a-layout-sider>
       </a-layout>
     </a-layout>
   </CommonLayout>
