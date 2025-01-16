@@ -14,6 +14,7 @@
         }"
       >
         <a-layout-content>
+          <SliderLightBox :images="estateDetail.bat_dong_san.HinhAnh" />
           <div class="detail__left--content">
             <div class="detail__left--title">
               <p class="breadcrumb">
@@ -215,7 +216,7 @@
               </div>
             </div>
 
-            <!-- <div class="detail__left--chartjs">
+            <div class="detail__left--chartjs">
               <h1
                 :style="{
                   fontSize: '24px',
@@ -243,7 +244,7 @@
                 borderWidth="13"
 
               />
-            </div> -->
+            </div>
 
             <!-- <div class="detail__left--chartjs">
               <h1
@@ -274,13 +275,105 @@
             </div> -->
           </div>
         </a-layout-content>
-
+        <a-layout-sider
+          :style="{
+            background: 'transparent',
+            padding: '0 20px',
+          }"
+        >
+          <a-card
+            :style="{
+              border: '1px solid #f2f2f2',
+              borderRadius: '8px',
+              marginBottom: '16px',
+              cursor: 'pointer',
+            }"
+            class="re_card-author"
+            @click="viewProfile(estateDetail.nguoi_dung.id)"
+          >
+            <div
+              :style="{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: '10px',
+              }"
+            >
+              <a-avatar
+                :size="60"
+                :style="{
+                  backgroundColor: '#ffeceb',
+                  color: '#74150f',
+                  verticalAlign: 'middle',
+                }"
+              >
+                {{ estateDetail.nguoi_dung.ho_ten.slice(0, 1) }}
+              </a-avatar>
+              <h3
+                :style="{
+                  fontSize: '18px',
+                }"
+              >
+                {{ estateDetail.nguoi_dung.ho_ten }}
+              </h3>
+              <p
+                :style="{
+                  fontSize: '14px',
+                  color: '#b3b3b3',
+                  marginTop: '-10px'
+                }"
+              >
+               xem thêm {{ estateDetail.nguoi_dung.ho_ten }} bất động sản
+               </p>
+            </div>
+            <div class="button-section">
+              <el-button
+                :style="{
+                  background: '#009ba1',
+                  color: 'white',
+                }"
+              >
+                <font-awesome-icon icon="phone" />
+                {{ estateDetail.nguoi_dung.so_dien_thoai }}
+              </el-button>
+              <el-button> Nhắn tin qua zalo </el-button>
+              <el-button> Gửi Email </el-button>
+              <el-button> Yêu cầu liên hệ lại </el-button>
+            </div>
+          </a-card>
+          <a-card
+            :style="{
+              border: '1px solid #f2f2f2',
+              borderRadius: '8px',
+              marginBottom: '16px',
+              width: '250px'
+            }"
+            class="re_card-author"
+          >
+            <div :style="{
+              display: 'flex',
+              flexDirection: 'row',
+              gap: '20px',
+              textAlign: 'justify',
+            }">
+              <i class="el-icon-bell"
+                 :style="{
+                fontSize: '30px',
+                color: 'red',
+                marginTop: '10px'
+              }"></i>
+              <p>Không nên đặt cọc, giao dịch trước khi xem nhà và xác minh thông tin của người cho thuê. </p>
+            </div>
+          </a-card>
+        </a-layout-sider>
       </a-layout>
     </a-layout>
   </CommonLayout>
 </template>
 
 <script>
+import SliderLightBox from "@/components/SliderLightBox.vue";
 import { Line as LineChartGenerator } from "vue-chartjs/legacy";
 import CommonLayout from "@/layout/CommonLayout.vue";
 import { RealEstateService } from "@/services/real_estate.service";
